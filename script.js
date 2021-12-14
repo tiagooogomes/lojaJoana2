@@ -117,7 +117,7 @@ function organizarPorCliente (){
 
       arrayDosClientes.push(grupodePessoas);
 
-      var quadrados = arrayDosClientes.map(function(item){
+      let quadrados = arrayDosClientes.map(function(item){
 
           const teste = document.getElementById("teste");
           teste.innerHTML = item.valor;
@@ -146,7 +146,7 @@ function organizarPorVencimento (){
 
       arrayDoVencimento.push(grupodeVencimento);
 
-      var quadrados = arrayDoVencimento.map(function(item){
+      let quadrados = arrayDoVencimento.map(function(item){
 
           const teste = document.getElementById("teste");
           teste.innerHTML = item.valor;
