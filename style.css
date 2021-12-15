@@ -51,18 +51,24 @@ input{
 }
 
 #botoes{
-    width: 60%;
+    width: 86%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 10%;
-    margin-left: 20%;
+    margin-left: 7%;
 }
 #botoes input{
     background-color: #B8B7BD;
-    width: 38%;
+    width: 22%;
     border-radius: 15px;
     color: #0E1A26;
     font-size: 40px;
+}
+
+#botoes input:hover{
+    background-color: #0E1A26;
+    color: #B8B7BD;
+    border: none;
 }
 
 #botoes input:hover{

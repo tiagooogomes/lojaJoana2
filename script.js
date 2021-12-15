@@ -9,10 +9,14 @@ const dadosFornecidos = () => ({
     total: ""
 });
 
+
+
 function limpardados() {
     let limpar = document.getElementById("tabela2");
     limpar.innerHTML = "";
 }
+
+
 
 function adicionarNaPagina(item){
 
@@ -37,6 +41,7 @@ function adicionarNaPagina(item){
     tabela.appendChild(clienteTr);
 }
 
+
 function inserirArray(){
    
     arrayDaTabela.push(dadosFornecidos());  
@@ -47,6 +52,8 @@ function inserirArray(){
     document.getElementById('dataDoVencimento').value = "";
     document.getElementById('valorDaCompra').value = "";
 }
+
+
 
 function adiconarJuros(){
 
@@ -75,32 +82,15 @@ function adiconarJuros(){
     console.log(arrayDaTabela);
 }
 
-function adicionarNaPagina2(obj){
-
-    let clienteTr = document.createElement("tr");
-
-    let clienteTd = document.createElement("td");
-    let vencimentoTd = document.createElement("td");
-    let valorTd = document.createElement("td");
-    let totaTd = document.createElement("td");
-
-    clienteTd.textContent = obj.cliente;
-    vencimentoTd.textContent = obj.vencimento;
-    valorTd.textContent = obj.valor;
-    totaTd.textContent = obj.total;
-
-    clienteTr.appendChild(clienteTd);
-    clienteTr.appendChild(vencimentoTd);
-    clienteTr.appendChild(valorTd);
-    clienteTr.appendChild(totaTd);
-
-    let tabela = document.getElementById("tabela2");
-    tabela.appendChild(clienteTr);
-}
-
 
 function organizarPorCliente (){
-    const arrayDosClientes = [];
+
+    arrayDaTabela.sort(function (a, b) {
+	
+        return (a.cliente > b.cliente) ? 1 : ((b.cliente > a.cliente) ? -1 : 0);
+    });
+
+    limpardados();
 
     function agruparPor(item, index) {
         return item.reduce(function (comparacao, objeto) {
@@ -113,20 +103,27 @@ function organizarPorCliente (){
         }, {});
     }
 
-      let grupodePessoas = agruparPor(arrayDaTabela, 'cliente');
+    let grupodePessoas = agruparPor(arrayDaTabela, 'cliente');
+    const array = [];
+    for (const key in grupodePessoas)
+    array.push(grupodePessoas[key]);
 
-      arrayDosClientes.push(grupodePessoas);
+    for(i = 0; i <= array.length; i++){
 
-      let quadrados = arrayDosClientes.map(function(item){
-
-        return item;
-     });
-
-     console.log(quadrados[0])     
+        array[i].forEach(adicionarNaPagina);
+    }
 }
+
+
 
 function organizarPorVencimento (){
-    const arrayDoVencimento = [];
+
+    arrayDaTabela.sort(function (a, b) {
+	
+        return (a.vencimento > b.vencimento) ? 1 : ((b.vencimento > a.vencimento) ? -1 : 0);
+    });
+
+    limpardados();
 
     function agruparPor(item, index) {
         return item.reduce(function (comparacao, objeto) {
@@ -139,16 +136,13 @@ function organizarPorVencimento (){
         }, {});
     }
 
-      let grupodeVencimento = agruparPor(arrayDaTabela, 'vencimento');
+    let grupodePessoas = agruparPor(arrayDaTabela, 'cliente');
+    const array = [];
+    for (const key in grupodePessoas)
+    array.push(grupodePessoas[key]);
 
-      arrayDoVencimento.push(grupodeVencimento);
+    for(i = 0; i <= array.length; i++){
 
-      let quadrados = arrayDoVencimento.map(function(item){
-
-        return item;
-     });
-
-     console.log(quadrados[0])     
+        array[i].forEach(adicionarNaPagina);
+    }
 }
-
-//A UTILIZAÇÃO DO METODO REDUCE FUNCIONOU E OS DADOS INSERIDOS SÃO AGRUPADOS DE FORMA CERTA COMO SE PODE VER NO CONSOLE.LOG. ENTRETANTO,NÃO CONSEGUI FAZER OS DADOS APARECEREM NO HTML E, CONSEQUENTIMENTE, NA PÁGINA.
