@@ -80,6 +80,13 @@ tr, table{
     font-family: 'Roboto', sans-serif;
 }
 
+tr h3{
+    text-align: center;
+    width: 100%;
+    margin-left: 150%;
+}
+
+
 thead td{
     background-color: #B8B7BD;
     color: #0E1A26;

@@ -6,17 +6,13 @@ const dadosFornecidos = () => ({
     cliente : document.getElementById("nomeDoCliente").value,
     vencimento : document.getElementById('dataDoVencimento').value,
     valor : parseFloat(document.getElementById('valorDaCompra').value),
-    total: ""
+    total: 0
 });
-
-
 
 function limpardados() {
     let limpar = document.getElementById("tabela2");
     limpar.innerHTML = "";
 }
-
-
 
 function adicionarNaPagina(item){
 
@@ -41,7 +37,6 @@ function adicionarNaPagina(item){
     tabela.appendChild(clienteTr);
 }
 
-
 function inserirArray(){
    
     arrayDaTabela.push(dadosFornecidos());  
@@ -52,8 +47,6 @@ function inserirArray(){
     document.getElementById('dataDoVencimento').value = "";
     document.getElementById('valorDaCompra').value = "";
 }
-
-
 
 function adiconarJuros(){
 
@@ -69,19 +62,16 @@ function adiconarJuros(){
         let totalPagar = "";
         
         if(diferencaDeDias > 0){
-            totalPagar = (valorCompra + valorCompra * taxa).toFixed(2);
+            totalPagar = (valorCompra + valorCompra * taxa).toFixed(0);
         }else{
             totalPagar = valorCompra
         }
 
-        item.total = totalPagar;      
+        item.total = parseFloat(totalPagar);     
         adicionarNaPagina(item);
 
     });
-
-    console.log(arrayDaTabela);
 }
-
 
 function organizarPorCliente (){
 
@@ -111,10 +101,17 @@ function organizarPorCliente (){
     for(i = 0; i <= array.length; i++){
 
         array[i].forEach(adicionarNaPagina);
+
+        const somaFeita = array[i].map(item => item.total).reduce((prev, curr) => prev + curr, 0);
+
+        let clienteTr = document.createElement("tr");
+        let tudoTd = document.createElement("h3");
+        tudoTd.textContent = `Total do Cliente: ${somaFeita}`;
+        clienteTr.appendChild(tudoTd);
+        let tabela = document.getElementById("tabela2");
+        tabela.appendChild(clienteTr);
     }
 }
-
-
 
 function organizarPorVencimento (){
 
@@ -136,7 +133,7 @@ function organizarPorVencimento (){
         }, {});
     }
 
-    let grupodePessoas = agruparPor(arrayDaTabela, 'cliente');
+    let grupodePessoas = agruparPor(arrayDaTabela, 'vencimento');
     const array = [];
     for (const key in grupodePessoas)
     array.push(grupodePessoas[key]);
@@ -144,5 +141,14 @@ function organizarPorVencimento (){
     for(i = 0; i <= array.length; i++){
 
         array[i].forEach(adicionarNaPagina);
+
+        const somaFeita = array[i].map(item => item.total).reduce((prev, curr) => prev + curr, 0);
+
+        let clienteTr = document.createElement("tr");
+        let tudoTd = document.createElement("h3");
+        tudoTd.textContent = `Total da Data: ${somaFeita}`;
+        clienteTr.appendChild(tudoTd);
+        let tabela = document.getElementById("tabela2");
+        tabela.appendChild(clienteTr);
     }
 }
